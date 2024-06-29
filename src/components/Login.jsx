@@ -5,7 +5,7 @@ import { CgSpinner } from "react-icons/cg";
 import PhoneInput from 'react-phone-input-2';
 import "react-phone-input-2/lib/style.css";
 import { auth } from './firebase.config';
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { RecaptchaVerifier, signInWithPhoneNumber, signOut } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import logo3 from "../../images/logo3.png";
 import Navbar from './Navbar';
@@ -14,6 +14,7 @@ import Footer from './Footer';
 import Transactions from './Transactions';
 import Services from './Services';
 import Market from './Market';
+
 
 const Login = () => {
   const [otp, setOtp] = useState("");
@@ -71,11 +72,19 @@ const Login = () => {
   };
 
   const handleLogout = () => {
-    setUser(null);
-    setShowOTP(false);
-    setPh("");
-    setInputName("");
-    setOtp("");
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+        setShowOTP(false);
+        setPh("");
+        setInputName("");
+        setOtp("");
+        toast.success("Logged out successfully");
+      })
+      .catch((error) => {
+        console.log("Logout Error: ", error);
+        toast.error("Failed to logout. Please try again.");
+      });
   };
 
   return (
