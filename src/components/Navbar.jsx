@@ -17,6 +17,7 @@ const Navbar = ({ onLogout }) => {
 
   const handleLogout = () => {
     onLogout();
+    setToggleMenu(false);  
   };
 
   return (
@@ -32,7 +33,6 @@ const Navbar = ({ onLogout }) => {
           title="Logout"
           classprops="bg-[#6DA5C0] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#86A8CF]"
           onClick={handleLogout} />
-          
       </ul>
       <div className="flex relative">
         {!toggleMenu && (
